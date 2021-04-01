@@ -1,3 +1,12 @@
+@ECHO OFF
+IF NOT DEFINED Current_Dir (
+	ECHO.
+	ECHO  YOU'VE RUN THE WRONG FILE! PLEASE FOLLOW THE INSTRUCTIONS!
+	ECHO.
+	ECHO  Press any key to exit...
+	PAUSE >NUL 2>&1
+	EXIT
+)
 
 ECHO.
 ECHO  -^> Creating Restore Point
