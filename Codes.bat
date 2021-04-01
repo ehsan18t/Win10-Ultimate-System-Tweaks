@@ -1,15 +1,3 @@
-@ECHO OFF
-TITLE Ultimate System Tweaks by Ahsan
-COLOR 0A
-ECHO.
-ECHO  		**********************************************
-ECHO  		**********************************************
-ECHO  		*** 	   Ultimate System Tweaks	   ***
-ECHO  		*** 	  Windows 10 Pro MagicX Mod   	   ***
-ECHO  		**********************************************
-ECHO  		**********************************************
-ECHO.
-ECHO.
 
 ECHO.
 ECHO  -^> Creating Restore Point
