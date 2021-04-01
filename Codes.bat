@@ -27,7 +27,7 @@ SetACL.exe -on "%WinDir%\HelpPane.exe" -ot file -actn setowner -ownr "n:Administ
 SetACL.exe -on "%WinDir%\HelpPane.exe" -ot file -actn ace -ace "n:Administrators;p:full"
 ECHO.
 ECHO       - Removing HelpPane.exe
-DEL "%Environment%\Toolkit\Mount\Install\1\Windows\HelpPane.exe"
+DEL "%WinDir%\HelpPane.exe"
 
 
 ECHO  -^> Cleaning Up Context Menu
