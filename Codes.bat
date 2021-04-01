@@ -1072,6 +1072,10 @@ REG ADD "HKCR\Directory\shell\Z002AAL" /v "AppliesTo" /t REG_SZ /d "NOT (System.
 FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /L | FINDSTR /I "^(Ultimate""') DO (SET "P_Flag=1")
 IF NOT "%P_Flag%"=="1" (
 	POWERCFG -DUPLICATESCHEME e9a42b02-d5df-448d-aa00-03f14749eb61
+	FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /L | FINDSTR /I "^(Ultimate""') DO (SET "ID=%%A" && GOTO :SET_POWER)
+	:SET_POWER
+	SET ID=%ID:~19, 36%
+	POWERCFG /S %ID%
 )
 
 sc.exe config BDESVC start= Disabled
