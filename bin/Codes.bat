@@ -58,7 +58,6 @@ IF EXIST "%SYSTEMDRIVE%\Program Files\WinRAR" (
 
 
 
-PAUSE
 EXIT
 
 :Clean_Context

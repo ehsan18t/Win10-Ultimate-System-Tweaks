@@ -1,4 +1,3 @@
-Codes.bat 2>&1 | wtee log.txt
 @ECHO OFF
 SET "VERSION=v2.0"
 TITLE Ultimate System Tweaks %VERSION% by Ahsan
@@ -20,4 +19,6 @@ SET "Bin_Dir=%Current_Dir%\bin"
 SET "Programs_Dir=%Current_Dir%\programs"
 
 COPY /Y "%Bin_Dir%\wtee.exe" "%SystemRoot%\System32\wtee.exe" >NUL 2>&1
+%Bin_Dir%\Codes.bat 2>&1 | wtee log.txt
 DEL "%SystemRoot%\System32\wtee.exe" >NUL 2>&1
+PAUSE
