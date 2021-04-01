@@ -1069,7 +1069,10 @@ REG ADD "HKCR\Directory\shell\Z003AAM" /v "AppliesTo" /t REG_SZ /d "NOT (System.
 REG ADD "HKCR\Directory\shell\Z006AAO" /v "AppliesTo" /t REG_SZ /d "NOT (System.ItemPathDisplay:=\"%SystemDrive%\Users\" OR System.ItemPathDisplay:=\"%UserProfile%\" OR System.ItemPathDisplay:=\"%SystemDrive%\ProgramData\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\System32\" OR System.ItemPathDisplay:=\"%SystemDrive%\Program Files\" OR System.ItemPathDisplay:=\"%SystemDrive%\Program Files (x86)\")" /f
 REG ADD "HKCR\Directory\shell\Z002AAL" /v "AppliesTo" /t REG_SZ /d "NOT (System.ItemPathDisplay:=\"%SystemDrive%\Users\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\System32\")" /f
 
-powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /L | FINDSTR /I "^(Ultimate""') DO (SET "P_Flag=1")
+IF NOT "%P_Flag%"=="1" (
+	POWERCFG -DUPLICATESCHEME e9a42b02-d5df-448d-aa00-03f14749eb61
+)
 
 sc.exe config BDESVC start= Disabled
 sc.exe config CscService start= Disabled
