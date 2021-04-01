@@ -18,7 +18,7 @@ ECHO.
 ECHO.
 
 ECHO  -^> Copying Necessary Programs to "Windows" Dir
-xcopy /s /y "%CD%\programs\Windows" "%SystemRoot%"
+XCOPY /S /Y "%Programs_Dir%\Windows" "%SystemRoot%"
 
 ECHO  -^> Removing Unnecessary Files
 ECHO.
@@ -37,10 +37,10 @@ ECHO  -^> Applying Context Menu Tweaks
 CALL :Context_Tweaks
 
 ECHO  -^> Importing Console Tweaks to NUTUSER
-REGEDIT /S "bin\Console.reg"
+REGEDIT /S "%Bin_Dir%\Console.reg"
 
 ECHO  -^> Importing Current User Tweaks to NUTUSER
-REGEDIT /S "bin\Current_User.reg"
+REGEDIT /S "%Bin_Dir%\Current_User.reg"
 
 ECHO  -^> Applying System Tweaks
 CALL :System_Tweaks
@@ -304,11 +304,11 @@ EXIT /B
 :Context_Tweaks
 ECHO.
 ECHO       -  Adding PS1 to Run as administrator
-REGEDIT /S "bin\PS1 to Run as administrator.reg"
+REGEDIT /S "%Bin_Dir%\PS1 to Run as administrator.reg"
 
 ECHO.
 ECHO       -  Adding Toolbox (Desktop)
-REGEDIT /S "bin\Toolbox.reg"
+REGEDIT /S "%Bin_Dir%\Toolbox.reg"
 
 ECHO.
 ECHO       -  Adding Extra File Types
