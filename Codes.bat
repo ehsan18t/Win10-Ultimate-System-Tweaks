@@ -37,7 +37,7 @@ ECHO  -^> Applying Context Menu Tweaks
 CALL :Context_Tweaks
 
 ECHO  -^> Importing Console Tweaks to NUTUSER
-REGEDIT /S "bin\Console - New.reg"
+REGEDIT /S "bin\Console.reg"
 
 ECHO  -^> Importing Current User Tweaks to NUTUSER
 REGEDIT /S "bin\Current_User.reg"
