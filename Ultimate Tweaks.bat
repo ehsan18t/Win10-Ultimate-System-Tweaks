@@ -22,4 +22,14 @@ ECHO.
 ECHO.
 
 %Bin_Dir%\Codes.bat 2>&1 | %Bin_Dir%\wtee.exe %Current_Dir%\logs.txt
+
+ECHO.
+ECHO  		****************************************
+ECHO  		****************************************
+ECHO  		***                                  ***
+ECHO  		*** 	  OPERATION SUCCESSFUL       ***
+ECHO  		***                                  ***
+ECHO  		****************************************
+ECHO  		****************************************
+ECHO.
 PAUSE
