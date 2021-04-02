@@ -1065,14 +1065,17 @@ REG ADD "HKCR\Directory\shell\Z003AAM" /v "AppliesTo" /t REG_SZ /d "NOT (System.
 REG ADD "HKCR\Directory\shell\Z006AAO" /v "AppliesTo" /t REG_SZ /d "NOT (System.ItemPathDisplay:=\"%SystemDrive%\Users\" OR System.ItemPathDisplay:=\"%UserProfile%\" OR System.ItemPathDisplay:=\"%SystemDrive%\ProgramData\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\System32\" OR System.ItemPathDisplay:=\"%SystemDrive%\Program Files\" OR System.ItemPathDisplay:=\"%SystemDrive%\Program Files (x86)\")" /f
 REG ADD "HKCR\Directory\shell\Z002AAL" /v "AppliesTo" /t REG_SZ /d "NOT (System.ItemPathDisplay:=\"%SystemDrive%\Users\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\" OR System.ItemPathDisplay:=\"%SystemDrive%\Windows\System32\")" /f
 
-FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /L | FINDSTR /I "^(Ultimate""') DO (SET "P_Flag=1")
-IF NOT "%P_Flag%"=="1" (
-	POWERCFG -DUPLICATESCHEME e9a42b02-d5df-448d-aa00-03f14749eb61
-	FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /L | FINDSTR /I "^(Ultimate""') DO (SET "ID=%%A" && GOTO :SET_POWER)
-	:SET_POWER
-	SET ID=%ID:~19, 36%
-	POWERCFG /S %ID%
-)
+FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /L | FINDSTR /I "^(Ultimate""') DO (GOTO :BREAK_POWER_ADD)
+POWERCFG -DUPLICATESCHEME e9a42b02-d5df-448d-aa00-03f14749eb61
+:BREAK_POWER_ADD
+
+FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /L | FINDSTR /I "^(Ultimate""') DO (SET "Power_ID=%%A" && GOTO :BREAK_POWER_SEARCH)
+:BREAK_POWER_SEARCH
+IF DEFINED Power_ID SET "Power_ID=%Power_ID:~19, 36%"
+
+FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /getactivescheme | FINDSTR /I "^(Ultimate""') DO (GOTO :BREAK_POWER_SELECTION)
+POWERCFG /S %Power_ID%
+:BREAK_POWER_SELECTION
 
 sc.exe config BDESVC start= Disabled
 sc.exe config CscService start= Disabled
