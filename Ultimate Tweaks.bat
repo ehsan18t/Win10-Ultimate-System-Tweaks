@@ -41,6 +41,15 @@ IF %WINVER% LSS 10 (
 	EXIT
 )
 
+FOR /F "TOKENS=3" %%A IN ('REG QUERY "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "ReleaseId"') DO (SET "WINVER=%%A")
+IF %WINVER% LSS 2103 (
+	ECHO.
+	ECHO  Ultimate System Tweaks %VERSION% HASN'T BEEN TESTED IN THIS VERSION OF WINDOWS! SOME FEATURES MIGHT NOT WORK!
+	ECHO.
+	CHOICE /N /C YN /M "=> WOULD YOU STILL LIKE TO CONTINUE? (Y/N)"  
+	IF ERRORLEVEL 2 EXIT
+)
+
 %Bin_Dir%\Codes.bat 2>&1 | %Bin_Dir%\wtee.exe %Current_Dir%\logs.txt
 
 ECHO.
