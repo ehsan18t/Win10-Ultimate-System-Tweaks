@@ -311,11 +311,11 @@ ECHO       -  Adding Extra File Types
 REG ADD "HKCR\.bat\ShellNew" /v "FileName" /t REG_SZ /d "bat.bat" /f
 REG ADD "HKCR\.c" /ve /t REG_SZ /d "c" /f
 REG ADD "HKCR\.c\ShellNew" /v "FileName" /t REG_SZ /d "c.c" /f
-REG ADD "HKCR\c" /ve /t REG_SZ /d "C File" /f
+REG ADD "HKCR\c" /ve /t REG_SZ /d "C Programming File" /f
 REG ADD "HKCR\.cmd\ShellNew" /v "Filename" /t REG_SZ /d "cmd.cmd" /f
 REG ADD "HKCR\.cpp" /ve /t REG_SZ /d "cpp" /f
 REG ADD "HKCR\.cpp\ShellNew" /v "FileName" /t REG_SZ /d "cpp.cpp" /f
-REG ADD "HKCR\cpp" /ve /t REG_SZ /d "CPP File" /f
+REG ADD "HKCR\cpp" /ve /t REG_SZ /d "C++ Programming File" /f
 REG ADD "HKCR\.html\ShellNew" /v "FileName" /t REG_SZ /d "html.html" /f
 REG ADD "HKCR\.js\ShellNew" /v "FileName" /t REG_SZ /d "" /f
 REG ADD "HKCR\.ps1\ShellNew" /v "Filename" /t REG_SZ /d "" /f
