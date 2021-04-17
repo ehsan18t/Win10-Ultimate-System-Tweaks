@@ -1,5 +1,5 @@
 @ECHO OFF
-SET "VERSION=v2.0"
+SET "VERSION=v2.1"
 TITLE Ultimate System Tweaks %VERSION% by Ahsan
 
 SET "Current_Dir=%~dp0"
