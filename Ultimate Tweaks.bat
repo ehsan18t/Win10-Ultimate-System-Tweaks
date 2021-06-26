@@ -6,10 +6,15 @@ SET "Current_Dir=%~dp0"
 SET "Bin_Dir=%Current_Dir%\bin"
 SET "Programs_Dir=%Bin_Dir%\programs"
 
-PUSHD %~DP0
-Rd "%WinDir%\system32\test_permissions" >NUL 2>NUL
-Md "%WinDir%\System32\test_permissions" 2>NUL||(WScript "%Bin_Dir%\Elevate.vbs" && EXIT)
-Rd "%WinDir%\System32\test_permissions" 2>NUL
+FLTMC >NUL 2>&1 || (
+	ECHO SET UAC = CreateObject^("Shell.Application"^) > "%TEMP%\GetAdmin.vbs"
+	ECHO UAC.ShellExecute "%~FS0", "", "", "runas", 1 >> "%TEMP%\GetAdmin.vbs"
+	CMD /U /C TYPE "%TEMP%\GetAdmin.vbs">"%TEMP%\GetAdminUnicode.vbs"
+	CSCRIPT /NOLOGO "%TEMP%\GetAdminUnicode.vbs"
+	DEL /F /Q "%TEMP%\GetAdmin.vbs" >NUL 2>&1
+	DEL /F /Q "%TEMP%\GetAdminUnicode.vbs" >NUL 2>&1
+	EXIT
+)
 
 COLOR 0A
 ECHO.
