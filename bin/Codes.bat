@@ -435,7 +435,15 @@ ECHO            -  Desktop - Boost
 REG ADD "HKCR\Directory\Background\shell\MagicXBoost" /v "MUIVerb" /t REG_SZ /d "Boost" /f
 REG ADD "HKCR\Directory\Background\shell\MagicXBoost" /v "Position" /t REG_SZ /d "Middle" /f
 REG ADD "HKCR\Directory\Background\shell\MagicXBoost" /v "Icon" /t REG_EXPAND_SZ /d "%%SystemRoot%%\MagicX\Boost\Boost.ico" /f
-REG ADD "HKCR\Directory\Background\shell\MagicXBoost\command" /ve /t REG_EXPAND_SZ /d "WScript.exe %%SystemRoot%%\MagicX\Boost\Boost.vbs" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost" /v "SubCommands" /t REG_SZ /d "" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\01_Lite" /v "Icon" /t REG_EXPAND_SZ /d "%%SystemRoot%%\MagicX\Boost\Lite.ico" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\01_Lite" /v "MUIVerb" /t REG_SZ /d "Boost" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\01_Lite" /v "HasLUAShield" /t REG_SZ /d "" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\01_Lite\command" /ve /t REG_EXPAND_SZ /d "WScript.exe %%SystemRoot%%\MagicX\Boost\Boost.vbs Lite" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\02_Aggressive" /v "MUIVerb" /t REG_SZ /d "Aggressive Boost" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\02_Aggressive" /v "Icon" /t REG_EXPAND_SZ /d "%%SystemRoot%%\MagicX\Boost\Aggressive.ico" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\02_Aggressive" /v "HasLUAShield" /t REG_SZ /d "" /f
+REG ADD "HKCR\Directory\Background\shell\MagicXBoost\shell\02_Aggressive\command" /ve /t REG_EXPAND_SZ /d "WScript.exe %%SystemRoot%%\MagicX\Boost\Boost.vbs Aggressive" /f
 
 ECHO            -  Desktop - Personalize
 REG ADD "HKCR\DesktopBackground\Shell\Personalize" /v "Icon" /t REG_SZ /d "themecpl.dll" /f
