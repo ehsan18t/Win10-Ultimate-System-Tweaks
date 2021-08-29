@@ -8,7 +8,6 @@ DEL "%Check_Update_Dir%\Current_Version.bat"
 PowerShell -NoLogo -NoProfile -COMMAND WGET https://github.com/Ahsan400/MagicX_Mod_Files/raw/master/MagicX_Toolbox/Updater/Toolbox_Update_Info.bat -OutFile "%Check_Update_Dir%\Toolbox_Update_Info.bat" >NUL 2>&1
 IF EXIST "%Check_Update_Dir%\Toolbox_Update_Info.bat" (
     CALL "%Check_Update_Dir%\Toolbox_Update_Info.bat"
-    DEL "%Check_Update_Dir%\Toolbox_Update_Info.bat"
 )
 
 IF DEFINED Current_Version IF DEFINED Update_Version IF "%Update_Version%" GTR "%Current_Version%" (

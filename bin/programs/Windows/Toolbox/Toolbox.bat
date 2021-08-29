@@ -1,7 +1,7 @@
 @ECHO OFF
 @REM @CHCP 65001>NUL
 @REM mode con:cols=78 lines=28
-SET Current_Version=2.1.0
+SET Current_Version=2.1.1
 TITLE MagicX Toolbox v%Current_Version% by Ahsan400
 
 @REM Global PATH Variables
@@ -1564,6 +1564,7 @@ ECHO   ^|_^|  ^|_^|\__,_^|\__, ^|_^|\___/_/\_\   ^|_^|\___/ \___/^|_^|_.__/ \___
 ECHO                 ^|___/         %C_DEFAULT%
 ECHO.
 IF EXIST "%AU_Temp_Path%\UpdateAvailable.yes" (
+    CALL "%AU_Temp_Path%\Toolbox_Update_Info.bat"
     CALL "%AU_Temp_Path%\Changelogs\Changelogs.bat"
     RMDIR /S /Q "%AU_Temp_Path%"
     ECHO  %C_Cyan%

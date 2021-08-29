@@ -18,5 +18,5 @@ IF EXIST "%Update_Path%\PreUpdater.bat" DEL "%Update_Path%\PreUpdater.bat" >NUL 
 
 COPY /Y "%Update_Path%\*.*" "%Current_Dir%\*.*" >NUL 2>&1
 RMDIR /S /Q "%Update_Path%" >NUL 2>&1
-START "%Current_Dir%\Toolbox.bat"
+START CALL "%Current_Dir%\Toolbox.bat"
 EXIT
