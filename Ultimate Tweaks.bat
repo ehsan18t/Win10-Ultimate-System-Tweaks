@@ -36,15 +36,8 @@ IF NOT EXIST "%SystemDrive%\Program Files (x86)" (
 FOR /F "TOKENS=2 DELIMS=[]" %%X IN ('ver') DO (SET "WINVER=%%X" && GOTO :WIN_VER_SEARCH_BREAK)
 :WIN_VER_SEARCH_BREAK
 SET "WINVER=%WINVER:Version =%"
-IF %WINVER% NEQ 10 (
-	:TWEAKS_NOT_SUPPORTED
-	ECHO.
-	ECHO  THIS TWEAKS IS NOT SUPPORTED IN THIS WINDOWS %WINVER%!
-	ECHO.
-	ECHO  Press any key to exit...
-	PAUSE >NUL 2>&1
-	EXIT
-)
+IF %WINVER% LSS 10 CALL :TWEAKS_NOT_SUPPORTED
+IF %WINVER% GEQ 11 CALL :TWEAKS_NOT_SUPPORTED
 
 FOR /F "TOKENS=3" %%A IN ('REG QUERY "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "ReleaseId"') DO (SET "WINVER=%%A")
 IF %WINVER% LSS 1803 (
@@ -66,4 +59,16 @@ ECHO  		***                                  ***
 ECHO  		****************************************
 ECHO  		****************************************
 ECHO.
-PAUSE
+ECHO  Press any key to exit...
+PAUSE >NUL 2>&1
+EXIT
+
+
+
+:TWEAKS_NOT_SUPPORTED
+ECHO.
+ECHO  THIS TWEAKS IS NOT SUPPORTED IN THIS WINDOWS %WINVER%!
+ECHO.
+ECHO  Press any key to exit...
+PAUSE >NUL 2>&1
+EXIT
