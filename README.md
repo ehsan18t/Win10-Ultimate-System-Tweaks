@@ -294,7 +294,7 @@
 &nbsp;
 </details>
 
-&#9655;&nbsp; Step 2: Run `Ultimate Tweaks.bat` file
+&#9655;&nbsp; Step 2: Run `Ultimate Tweaks.bat` file _as administrator_
 <br>
 
 **NOTE:** If you face any problem contact me or you can perform `System Restore`.
