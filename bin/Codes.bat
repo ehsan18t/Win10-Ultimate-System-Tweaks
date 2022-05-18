@@ -522,7 +522,7 @@ REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACA" /v "Icon" /t REG
 REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACA\command" /ve /t REG_EXPAND_SZ /d "\"%%SystemRoot%%\MagicX\NecessaryLib\EcMenu.exe\" /Admin /ReduceMemory" /f
 REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACB" /ve /t REG_SZ /d "Edit HOSTS File" /f
 REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACB" /v "HasLUAShield" /t REG_SZ /d "" /f
-REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACB\command" /ve /t REG_EXPAND_SZ /d "notepad.exe %%WinDir%%\System32\drivers\etc\hosts" /f
+REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACB\command" /ve /t REG_EXPAND_SZ /d "WScript \"%%WinDir%%\MagicX\Utills\OpenHere.vbs\" notepad admin \"%%WinDir%%\System32\drivers\etc\hosts\"" /f
 REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACC" /v "MUIVerb" /t REG_SZ /d "Restart Windows Explorer" /f
 REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACC" /v "Icon" /t REG_EXPAND_SZ /d "%%SystemRoot%%\MagicX\NecessaryLib\EcMenu.exe,23" /f
 REG ADD "HKCR\Directory\background\shell\Z002AAC\shell\Z005ACC\command" /ve /t REG_EXPAND_SZ /d "\"%%SystemRoot%%\MagicX\NecessaryLib\EcMenu.exe\" /ReExplorer" /f
