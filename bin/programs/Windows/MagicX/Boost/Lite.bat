@@ -13,10 +13,6 @@ FLTMC >NUL 2>&1 || (
 
 "%SystemRoot%\MagicX\NecessaryLib\EcMenu.exe" /TempClean
 TASKKILL /F /FI "STATUS EQ NOT RESPONDING"
-EmptyStandbyList workingsets
-EmptyStandbyList priority0standbylist
-EmptyStandbyList standbylist
-EmptyStandbyList modifiedpagelist
 DEL /S /Q /F "%TMP%\*"
 DEL /S /Q /F "%TEMP%\*"
 DEL /S /Q /F "%WINDIR%\Temp\*"
