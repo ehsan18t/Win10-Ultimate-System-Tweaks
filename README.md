@@ -289,12 +289,12 @@
 
 &nbsp;
 
-**NOTE:** `Max Usage` can be different depends on your system drive size. But make sure it's 4GB or bigger.
+**NOTE:** `Max Usage` can be different depending on your system drive size. But make sure it's 4GB or bigger.
 
 &nbsp;
 </details>
 
-&#9655;&nbsp; Step 2: Run `Ultimate Tweaks.bat` file _as administrator_
+&#9655;&nbsp; Step 2: Run `Ultimate Tweaks.bat` file
 <br>
 
 **NOTE:** If you face any problem contact me or you can perform `System Restore`.
@@ -348,7 +348,7 @@
 
 &nbsp;
 ## 🔆 **Need Help?**
-**Email:** [help.ahsan@gmail.com](mailto:help.ahsan@gmail.com)\
-**Telegram:** [https://t.me/Ahsan400](https://t.me/Ahsan400)\
+**Email:** [ehsan18t@gmail.com](mailto:ehsan18t@gmail.com)\
+**Telegram:** [https://t.me/ehsan18t](https://t.me/ehsan18t)\
 **Support Group:** [https://t.me/MagicXMod](https://t.me/MagicXMod)
 
