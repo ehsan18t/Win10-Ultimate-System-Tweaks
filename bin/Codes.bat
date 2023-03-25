@@ -1083,80 +1083,20 @@ FOR /F "DELIMS=%%L" %%A IN ('"POWERCFG /getactivescheme | FINDSTR /I "^(Ultimate
 POWERCFG /S %Power_ID%
 :BREAK_POWER_SELECTION
 
-sc.exe config BDESVC start= Disabled
-sc.exe config CscService start= Disabled
-sc.exe config dmwappushservice start= Disabled
-sc.exe config Fax start= Disabled
-sc.exe config FrameServer start= Disabled
-sc.exe config HvHost start= Disabled
-sc.exe config lfsvc start= Disabled
-sc.exe config lmhosts start= Disabled
-sc.exe config MSiSCSI start= Disabled
-sc.exe config PcaSvc start= Disabled
-sc.exe config PeerDistSvc start= Disabled
-sc.exe config PhoneSvc start= Disabled
-sc.exe config RpcLocator start= Disabled
-sc.exe config SCardSvr start= Disabled
-sc.exe config ScDeviceEnum start= Disabled
-sc.exe config SCPolicySvc start= Disabled
-sc.exe config SEMgrSvc start= Disabled
-sc.exe config SensorDataService start= Disabled
-sc.exe config SensorService start= Disabled
-sc.exe config SensrSvc start= Disabled
-sc.exe config SharedAccess start= Disabled
-sc.exe config SmsRouter start= Disabled
-sc.exe config SNMPTRAP start= Disabled
-sc.exe config TabletInputService start= Disabled
-sc.exe config TrkWks start= Disabled
-sc.exe config vmicguestinterface start= Disabled
-sc.exe config vmicheartbeat start= Disabled
-sc.exe config vmickvpexchange start= Disabled
-sc.exe config vmicrdv start= Disabled
-sc.exe config vmicshutdown start= Disabled
-sc.exe config vmictimesync start= Disabled
-sc.exe config vmicvmsession start= Disabled
-sc.exe config vmicvss start= Disabled
-sc.exe config WinRM start= Disabled
-sc.exe config XboxGipSvc start= Disabled
 
-net stop BDESVC /y
-net stop CscService /y
-net stop dmwappushservice /y
-net stop Fax /y
-net stop FrameServer /y
-net stop HvHost /y
-net stop lfsvc /y
-net stop lmhosts /y
-net stop MSiSCSI /y
-net stop PcaSvc /y
-net stop PeerDistSvc /y
-net stop PhoneSvc /y
-net stop RpcLocator /y
-net stop SCardSvr /y
-net stop ScDeviceEnum /y
-net stop SCPolicySvc /y
-net stop SEMgrSvc /y
-net stop SensorDataService /y
-net stop SensorService /y
-net stop SensrSvc /y
-net stop SharedAccess /y
-net stop SmsRouter /y
-net stop SNMPTRAP /y
-net stop TabletInputService /y
-net stop TrkWks /y
-net stop vmicguestinterface /y
-net stop vmicheartbeat /y
-net stop vmickvpexchange /y
-net stop vmicrdv /y
-net stop vmicshutdown /y
-net stop vmictimesync /y
-net stop vmicvmsession /y
-net stop vmicvss /y
-net stop WinRM /y
-net stop XboxGipSvc /y
-EXIT /B
+@REM Disable Services
+SET "services=%Bin_Dir%\services.txt"
 
+FOR /F "usebackq tokens=*" %%A IN ("%services%") DO (
+    SET "line=%%A"
+    IF NOT "!line:~0,1!" == "#" (
+		NET STOP %%A /Y
+		SC CONFIG "%%A" start= disabled
+		NET STOP %%A /Y
+	)
+)
 
+DEL "%services%"
 
 
 :Winrar
