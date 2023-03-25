@@ -1,7 +1,9 @@
 #include <iostream>
+// #include <bits/stdc++.h>
+
 using namespace std;
 
-int main(int argc, char const *argv[])
+int main()
 {
 	/* YOUR CODE START FROM HERE */
 	return 0;
