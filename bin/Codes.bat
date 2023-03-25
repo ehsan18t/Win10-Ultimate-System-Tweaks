@@ -185,25 +185,25 @@ SetACL.exe -on "HKCR\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\Manage" 
 
 ECHO.
 ECHO       - Removing Print
-REG ADD "HKCR\SystemFileAssociations\image\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\batfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\cmdfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\docxfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\fonfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\htmlfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\inffile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\inifile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\JSEFile\Shell\Print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\otffile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\pfmfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\regfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\rtffile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\ttcfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\ttffile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\txtfile\shell\print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\VBEFile\Shell\Print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\VBSFile\Shell\Print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
-REG ADD "HKCR\WSFFile\Shell\Print" /v "ProgrammaticAccessOnly" /t REG_SZ /d "" /f
+REG DELETE "HKCR\SystemFileAssociations\image\shell\print" /f
+REG DELETE "HKCR\batfile\shell\print" /f
+REG DELETE "HKCR\cmdfile\shell\print" /f
+REG DELETE "HKCR\docxfile\shell\print" /f
+REG DELETE "HKCR\fonfile\shell\print" /f
+REG DELETE "HKCR\htmlfile\shell\print" /f
+REG DELETE "HKCR\inffile\shell\print" /f
+REG DELETE "HKCR\inifile\shell\print" /f
+REG DELETE "HKCR\JSEFile\Shell\Print" /f
+REG DELETE "HKCR\otffile\shell\print" /f
+REG DELETE "HKCR\pfmfile\shell\print" /f
+REG DELETE "HKCR\regfile\shell\print" /f
+REG DELETE "HKCR\rtffile\shell\print" /f
+REG DELETE "HKCR\ttcfile\shell\print" /f
+REG DELETE "HKCR\ttffile\shell\print" /f
+REG DELETE "HKCR\txtfile\shell\print" /f
+REG DELETE "HKCR\VBEFile\Shell\Print" /f
+REG DELETE "HKCR\VBSFile\Shell\Print" /f
+REG DELETE "HKCR\WSFFile\Shell\Print" /f
 
 
 ECHO.
