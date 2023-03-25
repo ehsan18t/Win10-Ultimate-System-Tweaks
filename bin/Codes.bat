@@ -1090,9 +1090,12 @@ SET "services=%Bin_Dir%\services.txt"
 FOR /F "usebackq tokens=*" %%A IN ("%services%") DO (
     SET "line=%%A"
     IF NOT "!line:~0,1!" == "#" (
+		ECHO.
+		ECHO  =^> Disabling service: !line!
 		NET STOP %%A /Y
 		SC CONFIG "%%A" start= disabled
 		NET STOP %%A /Y
+		ECHO.
 	)
 )
 
