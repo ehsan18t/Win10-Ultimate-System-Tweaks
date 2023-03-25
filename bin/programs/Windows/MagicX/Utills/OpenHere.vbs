@@ -16,11 +16,15 @@ Else
 End If
 
 If programName="cmd" Then
-		app.ShellExecute programName, " /k pushd """ & openLocation & "\""", , openAs, 1
+		app.ShellExecute programName, " /s /k pushd """ & openLocation & "\"" & " & "title Command Prompt", , openAs, 1
 ElseIf programName="powershell" Then
 		app.ShellExecute programName, " -noexit -command Set-Location -literalPath '" & openLocation & "\'", , openAs, 1
-Else
+ElseIf programName="notepad" Then
 		app.ShellExecute programName, " """ & openLocation & """", , openAs, 1
+ElseIf programName="shell" Then
+		app.ShellExecute openLocation, , , openAs, 1
+ElseIf programName="hiddenshell" Then
+		app.ShellExecute openLocation, , , openAs, 0
 End If
 
 WScript.Quit
