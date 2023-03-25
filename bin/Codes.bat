@@ -1098,6 +1098,11 @@ FOR /F "usebackq tokens=*" %%A IN ("%services%") DO (
 
 DEL "%services%"
 
+@REM Disable Force Windows 11 Upgrade Notifications
+FOR /F "TOKENS=3" %%A IN ('REG QUERY "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "DisplayVersion"') DO (SET "WINVER=%%A")
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "TargetReleaseversion" /t REG_DWORD /d "1" /f  >NUL 2>&1
+REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "TargetReleaseversionInfo" /t REG_SZ /d "%WINVER%" /f
+
 
 :Winrar
 REG ADD "HKCU\Software\WinRAR" /v "ExportedSettings" /t REG_DWORD /d "1" /f
