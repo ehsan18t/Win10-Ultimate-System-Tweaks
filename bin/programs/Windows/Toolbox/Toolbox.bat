@@ -1,8 +1,9 @@
 @ECHO OFF
-@REM @CHCP 65001>NUL
+SETLOCAL ENABLEDELAYEDEXPANSION
+@CHCP 65001 >NUL 2>&1
 @REM mode con:cols=78 lines=28
-SET Current_Version=2.1.1
-TITLE MagicX Toolbox v%Current_Version% by Ahsan400
+SET Current_Version=2.1.3
+TITLE MagicX Toolbox v%Current_Version%
 
 @REM Global PATH Variables
 SET "Current_Dir=%~dp0"
@@ -35,7 +36,7 @@ SET "C_DEFAULT=%C_Yellow%"
 
 @REM Other Global Variables
 @REM Unicode Symbols ■
-SET "Status_Symbol=@"
+SET "Status_Symbol=■"
 SET "APPLIED=%C_Green%%Status_Symbol%%C_DEFAULT%"
 SET "NOT_APPLIED=%C_Red%%Status_Symbol%%C_DEFAULT%"
 SET "Bullet_Point1=%C_Yellow%%Status_Symbol%%C_DEFAULT%"
@@ -49,8 +50,8 @@ COLOR 0E
 SET Menu_Address=Main_Menu
 CALL :Header
 ECHO                  %C_Red%--------------------------------------
-ECHO                  ^|%C_DEFAULT%  Author: %C_Cyan%Ahsan Khan (@Ahsan400)%C_DEFAULT%    %C_Red%^|
-ECHO                  ^|%C_DEFAULT%  Target: %C_Cyan%Windows 10 19H2-21H1 %C_DEFAULT%     %C_Red%^|
+ECHO                  ^|%C_DEFAULT%  Author: %C_Cyan%Ehsan Khan (@ehsan18t)%C_DEFAULT%    %C_Red%^|
+ECHO                  ^|%C_DEFAULT%  Target: %C_Cyan%Windows 10 19H2-22H2 %C_DEFAULT%     %C_Red%^|
 ECHO                  ^|%C_DEFAULT%  TG Group: %C_Blue%https:\\t.me\MagicXMod%C_DEFAULT%  %C_Red%^|
 ECHO                  ^|%C_DEFAULT%  Website: %C_Blue%MagicXMod.github.io%C_DEFAULT%      %C_Red%^|
 ECHO                  --------------------------------------%C_DEFAULT%
@@ -94,17 +95,20 @@ SET Menu_Address=Appearance
 
 
 @REM Creating some variables for checking status
-SET "enable_arrow_icon_status=%APPLIED%"
-SET "enable_action_center_status=%APPLIED%"
-SET "enable_old_battery_status=%NOT_APPLIED%"
-SET "enable_old_network_status=%NOT_APPLIED%"
-SET "enable_old_vol_status=%NOT_APPLIED%"
+SET "arrow_icon_status=%APPLIED% Disable"
+SET "arrow_icon_val=1"
 
-SET "disable_arrow_icon_status=%NOT_APPLIED%"
-SET "disable_action_center_status=%NOT_APPLIED%"
-SET "disable_old_battery_status=%APPLIED%"
-SET "disable_old_network_status=%APPLIED%"
-SET "disable_old_vol_status=%APPLIED%"
+SET "action_center_status=%APPLIED% Disable"
+SET "action_center_val=1"
+
+SET "old_battery_status=%APPLIED% Disable"
+SET "old_battery_val=1"
+
+SET "old_network_status=%APPLIED% Disable"
+SET "old_network_val=1"
+
+SET "old_vol_status=%APPLIED% Disable"
+SET "old_vol_val=1"
 
 @REM Enable/Disable Arrow Icon In Shortcut
 SET "REG_KEY=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
@@ -112,8 +116,10 @@ SET "REG_DATA=29"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "%%systemroot%%\Blank.ico,0" (
-    SET "enable_arrow_icon_status=%NOT_APPLIED%"
-    SET "disable_arrow_icon_status=%APPLIED%"
+    SET "arrow_icon_status=%NOT_APPLIED% Enable"
+    SET "arrow_icon_val=0"
+) ELSE (
+    SET "arrow_icon_status=%APPLIED% Disable"
 )
 
 @REM Enable/Disable Action Center
@@ -122,8 +128,10 @@ SET "REG_DATA=DisableNotificationCenter"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "0x1" (
-    SET "enable_action_center_status=%NOT_APPLIED%"
-    SET "disable_action_center_status=%APPLIED%"
+    SET "action_center_status=%NOT_APPLIED% Enable"
+    SET "action_center_val=0"
+) ELSE (
+    SET "action_center_status=%APPLIED% Disable"
 )
 
 @REM Enable/Disable Old Battery Flyout UI
@@ -132,8 +140,10 @@ SET "REG_DATA=UseWin32BatteryFlyout"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "0x1" (
-    SET "enable_old_battery_status=%APPLIED%"
-    SET "disable_old_battery_status=%NOT_APPLIED%"
+    SET "old_battery_status=%APPLIED% Disable"
+) ELSE (
+    SET "old_battery_status=%NOT_APPLIED% Enable"
+    SET "old_battery_val=0"
 )
 
 @REM Enable/Disable Old Network Flyout UI
@@ -142,8 +152,10 @@ SET "REG_DATA=ReplaceVan"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "0x2" (
-    SET "enable_old_network_status=%APPLIED%"
-    SET "disable_old_network_status=%NOT_APPLIED%"
+    SET "old_network_status=%APPLIED% Disable"
+) ELSE (
+    SET "old_network_status=%NOT_APPLIED% Enable"
+    SET "old_network_val=0"
 )
 
 @REM Enable/Disable Old Volume Control Flyout UI
@@ -152,50 +164,38 @@ SET "REG_DATA=EnableMtcUvc"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "0x0" (
-    SET "enable_old_vol_status=%APPLIED%"
-    SET "disable_old_vol_status=%NOT_APPLIED%"
+    SET "old_vol_status=%APPLIED% Disable"
+) ELSE (
+    SET "old_vol_status=%NOT_APPLIED% Enable"
+    SET "old_vol_val=0"
 )
 
 
 CALL :Header
-ECHO  ============
-ECHO  ^|^| Enable ^|^|
-ECHO  ============
-ECHO  1. %enable_arrow_icon_status% Enable Arrow Icon In Shortcut
-ECHO  2. %enable_action_center_status% Enable Action Center
-ECHO  3. %enable_old_battery_status% Enable Old Battery Flyout UI
-ECHO  4. %enable_old_network_status% Enable Old Network Flyout UI
-ECHO  5. %enable_old_vol_status% Enable Old Volume Control Flyout UI
-ECHO  6. Enable Taskbar
-ECHO.
-ECHO  =============
-ECHO  ^|^| Disable ^|^|
-ECHO  =============
-ECHO  A. %disable_arrow_icon_status% Disable Arrow Icon From Shortcut
-ECHO  B. %disable_action_center_status% Disable Action Center
-ECHO  C. %disable_old_battery_status% Disable Old Battery Flyout UI
-ECHO  D. %disable_old_network_status% Disable Old Network Flyout UI
-ECHO  E. %disable_old_vol_status% Disable Old Volume Control Flyout UI
-ECHO  F. Disable Taskbar (Hide)
+ECHO  =============================
+ECHO  ^|^| Appearance Control Menu ^|^|
+ECHO  =============================
+ECHO  1. %arrow_icon_status% Enable Arrow Icon In Shortcut
+ECHO  2. %action_center_status% Enable Action Center
+ECHO  3. %old_battery_status% Enable Old Battery Flyout UI
+ECHO  4. %old_network_status% Enable Old Network Flyout UI
+ECHO  5. %old_vol_status% Enable Old Volume Control Flyout UI
+ECHO  6. %Bullet_Point1% Enable Taskbar
+ECHO  7. %Bullet_Point1% Disable Taskbar (Hide)
 ECHO.
 ECHO %C_Cyan% H. Main Menu %C_DEFAULT%
 
 ECHO [1;37m
-CHOICE /C:123456ABCDEFH /N /M "Enter your choice: "
+CHOICE /C:1234567H /N /M "Enter your choice: "
 ECHO %C_DEFAULT%
-IF ERRORLEVEL 13 GOTO Main_Menu
-IF ERRORLEVEL 12 GOTO ds_taskbar
-IF ERRORLEVEL 11 GOTO ds_old_vol_ctrl
-IF ERRORLEVEL 10 GOTO ds_old_net
-IF ERRORLEVEL 9 GOTO ds_old_battery
-IF ERRORLEVEL 8 GOTO ds_act_cent
-IF ERRORLEVEL 7 GOTO ds_arw_shtct
+IF ERRORLEVEL 8 GOTO Main_Menu
+IF ERRORLEVEL 7 GOTO ds_taskbar
 IF ERRORLEVEL 6 GOTO en_taskbar
-IF ERRORLEVEL 5 GOTO en_old_vol_ctrl
-IF ERRORLEVEL 4 GOTO en_old_net
-IF ERRORLEVEL 3 GOTO en_old_battery
-IF ERRORLEVEL 2 GOTO en_act_cent
-IF ERRORLEVEL 1 GOTO en_arw_shtct
+IF ERRORLEVEL 5 IF "%old_vol_val%" EQU "0" ( GOTO en_old_vol_ctrl ) ELSE ( GOTO ds_old_vol_ctrl )
+IF ERRORLEVEL 4 IF "%old_network_val%" EQU "0" ( GOTO en_old_net ) ELSE ( GOTO ds_old_net )
+IF ERRORLEVEL 3 IF "%old_battery_val%" EQU "0" ( GOTO en_old_battery ) ELSE ( GOTO ds_old_battery )
+IF ERRORLEVEL 2 IF "%action_center_val%" EQU "0" ( GOTO en_act_cent ) ELSE ( GOTO ds_act_cent )
+IF ERRORLEVEL 1 IF "%arrow_icon_val%" EQU "0" ( GOTO en_arw_shtct ) ELSE ( GOTO ds_arw_shtct )
 
 
 :ds_arw_shtct
@@ -798,17 +798,20 @@ SET Menu_Name=System Menu
 SET Menu_Address=System_Menu
 
 @REM Variables for Status Checking
-SET "enable_large_system_cache_status=%NOT_APPLIED%"
-SET "enable_hibernation_status=%NOT_APPLIED%"
-SET "enable_startup_delay_status=%APPLIED%"
-SET "enable_being_search_status=%APPLIED%"
-SET "enable_thumbnails_status=%APPLIED%"
+SET "large_system_cache_status=%NOT_APPLIED% Enable"
+SET "large_system_cache_val=0"
 
-SET "disable_large_system_cache_status=%APPLIED%"
-SET "disable_hibernation_status=%APPLIED%"
-SET "disable_startup_delay_status=%NOT_APPLIED%"
-SET "disable_being_search_status=%NOT_APPLIED%"
-SET "disable_thumbnails_status=%NOT_APPLIED%"
+SET "hibernation_status=%NOT_APPLIED% Enable"
+SET "hibernation_val=0"
+
+SET "startup_delay_status=%APPLIED% Disable"
+SET "startup_delay_val=1"
+
+SET "being_search_status=%NOT_APPLIED% Enable"
+SET "being_search_val=0"
+
+SET "thumbnails_status=%APPLIED% Disable"
+SET "thumbnails_val=1"
 
 SET "large_icon_cache_4mb_status=%NOT_APPLIED%"
 SET "large_icon_cache_8mb_status=%NOT_APPLIED%"
@@ -821,14 +824,14 @@ SET "REG_DATA=LargeSystemCache"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "0x1" (
-    SET "enable_large_system_cache_status=%APPLIED%"
-    SET "disable_large_system_cache_status=%NOT_APPLIED%"
+    SET "large_system_cache_status=%APPLIED% Disable"
+    SET "large_system_cache_val=1"
 )
 
 @REM Enable/Disable Hibernation
 IF EXIST "%SystemDrive%\hiberfil.sys" (
-    SET "enable_hibernation_status=%APPLIED%"
-    SET "disable_hibernation_status=%NOT_APPLIED%"
+    SET "hibernation_status=%APPLIED% Disable"
+    SET "hibernation_val=1"
 )
 
 @REM Enable/Disable Startup Delay
@@ -837,8 +840,8 @@ SET "REG_DATA=StartupDelayInMSec"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "0x0" (
-    SET "disable_startup_delay_status=%APPLIED%"
-    SET "enable_startup_delay_status=%NOT_APPLIED%"
+    SET "startup_delay_status=%NOT_APPLIED% Enable"
+    SET "startup_delay_val=0"
 )
 
 @REM Enable/Disable Web/Being Search in Windows Search
@@ -846,9 +849,9 @@ SET "REG_KEY=HKCU\Software\Microsoft\Windows\CurrentVersion\Search"
 SET "REG_DATA=BingSearchEnable"
 SET "REG_VALUE="
 CALL :Check_REG_Value
-IF "%REG_VALUE%" EQU "0x0" (
-    SET "disable_being_search_status=%APPLIED%"
-    SET "enable_being_search_status=%NOT_APPLIED%"
+IF "%REG_VALUE%" EQU "0x1" (
+    SET "being_search_status=%APPLIED% Disable"
+    SET "being_search_val=1"
 )
 
 @REM Enable/Disable Thumbnails
@@ -857,8 +860,8 @@ SET "REG_DATA=DisableThumbnails"
 SET "REG_VALUE="
 CALL :Check_REG_Value
 IF "%REG_VALUE%" EQU "0x1" (
-    SET "disable_thumbnails_status=%APPLIED%"
-    SET "enable_thumbnails_status=%NOT_APPLIED%"
+    SET "thumbnails_status=%NOT_APPLIED% Enable"
+    SET "thumbnails_val=0"
 )
 
 @REM Enable/Disable Large Icon Cache
@@ -883,48 +886,34 @@ IF "%REG_VALUE%" EQU "8192" (
 )
 
 CALL :Header
-ECHO  ============
-ECHO  ^|^| Enable ^|^|
-ECHO  ============
-ECHO  1. %enable_large_system_cache_status% Enable Large System Cache %C_Cyan%(Only for %C_Red%8GB+%C_Cyan% RAM Users)%C_DEFAULT%
-ECHO  2. %enable_hibernation_status% Enable Hibernation %C_Cyan%(Recommended)%C_DEFAULT%
-ECHO  3. %enable_startup_delay_status% Enable Startup Delay %C_Cyan%(Recommended for %C_Red%HDD%C_Cyan%)%C_DEFAULT%
-ECHO  4. %enable_being_search_status% Enable Web/Being Search in Windows Search
-ECHO  5. %enable_thumbnails_status% Enable Thumbnails
+ECHO  =========================
+ECHO  ^|^| System Control Menu ^|^|
+ECHO  =========================
+ECHO  1. %large_system_cache_status% Large System Cache %C_Cyan%(Only for %C_Red%8GB+%C_Cyan% RAM Users)%C_DEFAULT%
+ECHO  2. %hibernation_status% Hibernation %C_Cyan%(Recommended)%C_DEFAULT%
+ECHO  3. %startup_delay_status% Startup Delay %C_Cyan%(Recommended for %C_Red%HDD%C_Cyan%)%C_DEFAULT%
+ECHO  4. %being_search_status% Web/Being Search in Windows Search
+ECHO  5. %thumbnails_status% Thumbnails
 ECHO  6. %large_icon_cache_4mb_status% Enable Large Icon Cache %C_Cyan%(4MB)%C_DEFAULT%
 ECHO  7. %large_icon_cache_8mb_status% Enable Large Icon Cache %C_Red%(8MB)%C_DEFAULT%
-ECHO.
-ECHO  =============
-ECHO  ^|^| Disable ^|^|
-ECHO  =============
-ECHO  A. %disable_large_system_cache_status% Disable Large System Cache
-ECHO  B. %disable_hibernation_status% Disable Hibernation
-ECHO  C. %disable_startup_delay_status% Disable Startup Delay %C_Cyan%(Recommended for %C_Red%SSD%C_Cyan%)%C_DEFAULT%
-ECHO  D. %disable_being_search_status% Disable Web/Being Search in Windows Search
-ECHO  E. %disable_thumbnails_status% Disable Thumbnails
-ECHO  F. %large_icon_cache_500kb_status% Disable Large Icon Cache %C_Cyan%(Default=%C_Green%500KB%C_Cyan%)%C_DEFAULT%
-ECHO  G. HELP %C_Cyan%(Description of All Above Tweaks)%C_DEFAULT%
+ECHO  8. %large_icon_cache_500kb_status% Disable Large Icon Cache %C_Cyan%(Default=%C_Green%500KB%C_Cyan%)%C_DEFAULT%
+ECHO  9. %Bullet_Point1% HELP %C_Cyan%(Description of All Above Tweaks)%C_DEFAULT%
 ECHO.
 ECHO %C_Cyan% H. Main Menu %C_DEFAULT%
 
 ECHO [1;37m
-CHOICE /C:1234567ABCDEFGH /N /M "Enter your choice: "
+CHOICE /C:123456789H /N /M "Enter your choice: "
 ECHO %C_DEFAULT%
-IF ERRORLEVEL 15 GOTO Main_Menu
-IF ERRORLEVEL 14 GOTO sys_help
-IF ERRORLEVEL 13 GOTO ds_large_icn_cache
-IF ERRORLEVEL 12 GOTO ds_thumb
-IF ERRORLEVEL 11 GOTO ds_web_search
-IF ERRORLEVEL 10 GOTO ds_strtup_delay
-IF ERRORLEVEL 9 GOTO ds_hibernate
-IF ERRORLEVEL 8 GOTO ds_large_sys_cache
+IF ERRORLEVEL 10 GOTO Main_Menu
+IF ERRORLEVEL 9 GOTO sys_help
+IF ERRORLEVEL 8 GOTO ds_large_icn_cache
 IF ERRORLEVEL 7 GOTO en_large_icn_cache_8mb
 IF ERRORLEVEL 6 GOTO en_large_icn_cache_4mb
-IF ERRORLEVEL 5 GOTO en_thumb
-IF ERRORLEVEL 4 GOTO en_web_search
-IF ERRORLEVEL 3 GOTO en_strtup_delay
-IF ERRORLEVEL 2 GOTO en_hibernate
-IF ERRORLEVEL 1 GOTO en_large_sys_cache
+IF ERRORLEVEL 5 IF "%thumbnails_val%" EQU "0" ( GOTO en_thumb ) ELSE ( GOTO ds_thumb )
+IF ERRORLEVEL 4 IF "%being_search_val%" EQU "0" ( GOTO en_web_search ) ELSE ( GOTO ds_web_search )
+IF ERRORLEVEL 3 IF "%startup_delay_val%" EQU "0" ( GOTO en_strtup_delay ) ELSE ( GOTO ds_strtup_delay )
+IF ERRORLEVEL 2 IF "%hibernation_val%" EQU "0" ( GOTO en_hibernate ) ELSE ( GOTO ds_hibernate )
+IF ERRORLEVEL 1 IF "%large_system_cache_val%" EQU "0" ( GOTO en_large_sys_cache ) ELSE ( GOTO ds_large_sys_cache )
 
 
 :en_large_sys_cache
@@ -966,6 +955,10 @@ REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "
 CALL :END_LINE_RSRT
 
 :en_web_search
+REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnable" /t REG_DWORD /d "1" /f >NUL 2>&1
+REG ADD "HKLM\Software\Microsoft\Windows\CurrentVersion\Search" /v "BingSearchEnable" /t REG_DWORD /d "1" /f >NUL 2>&1
+REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "CortanaConsent" /f >NUL 2>&1
+REG DELETE "HKLM\Software\Microsoft\Windows\CurrentVersion\Search" /v "CortanaConsent" /f >NUL 2>&1
 REG DELETE "HKCU\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /f >NUL 2>&1
 REG DELETE "HKLM\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /f
 CALL :RSTRT_WIN_EX
@@ -1010,6 +1003,7 @@ CALL :END_LINE
 @REM ::						 ::
 @REM ::::::::::::::::::::::::::
 :Downloads
+@CHCP 1252 >NUL 2>&1
 SET Menu_Name=Downloads Center
 SET Menu_Address=Downloads_Menu
 ECHO  ^=^> %C_Cyan%Fetching Downloads Info......%C_DEFAULT%
@@ -1022,7 +1016,6 @@ CALL Downloads_Info.bat
 DEL Downloads_Info.bat
 
 :Downloads_Menu
-IF NOT EXIST "%DESKTOP%\Apps" MD "%DESKTOP%\Apps"
 CLS
 COLOR 0E
 Set "Pattern= "
@@ -1073,15 +1066,15 @@ COLOR 0E
 SET Menu_Name=Windows Update Menu
 SET Menu_Address=Windows_Update
 
-SET "Update_Disable_Status=%NOT_APPLIED%"
-SET "Update_Enable_Status=%APPLIED%"
+SET "Windows_Update_Status=%APPLIED% Disable"
+SET "Windows_Update_val=1"
 REG QUERY "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" >NUL 2>&1
 IF %ERRORLEVEL% EQU 0 (
     SET "Service_Name=wuauserv"
     CALL :Check_Service_Disabled
     IF DEFINED IS_SERVICE_DISABLED (
-        SET "Update_Disable_Status=%APPLIED%"
-        SET "Update_Enable_Status=%NOT_APPLIED%"
+        SET "Windows_Update_Status=%NOT_APPLIED% Enable"
+        SET "Windows_Update_val=0"
     )
 )
 
@@ -1113,9 +1106,8 @@ ECHO  ^|  Because after you update windows it can ^change all the %C_Red%Tweaks%
 ECHO  -------------------------------------------------------------------------------
 CALL :TWO_ECHO
 ECHO  %C_Cyan%^<%C_Red%General Settings%C_Cyan%^>%C_DEFAULT%
-ECHO  1. After Update Tweaks
-ECHO  2. %Update_Disable_Status% Disable Windows Update
-ECHO  3. %Update_Enable_Status% Enable Windows Update
+ECHO  1. %Bullet_Point1% After Update Tweaks
+ECHO  2. %Windows_Update_Status% Windows Update
 ECHO.
 ECHO  %C_Cyan%^<%C_Red%Advanced Settings%C_Cyan%^>%C_DEFAULT%
 ECHO  A. %Update_Enable_Status_A% Check ^& Notify ^If Updates Available
@@ -1124,14 +1116,13 @@ ECHO  C. %Update_Enable_Status_C% Automatically Download and Install Updates
 ECHO.
 ECHO %C_Cyan% H. Main Menu %C_DEFAULT%
 ECHO.
-CHOICE /C:123ABCH /N /M "Enter your choice: "
+CHOICE /C:12ABCH /N /M "Enter your choice: "
 ECHO.
-IF ERRORLEVEL 7 GOTO Main_Menu
-IF ERRORLEVEL 6 GOTO Download_and_Install
-IF ERRORLEVEL 5 GOTO Check_and_Download
-IF ERRORLEVEL 4 GOTO Notify_Only
-IF ERRORLEVEL 3 GOTO en_Windows_Update
-IF ERRORLEVEL 2 GOTO ds_Windows_Update
+IF ERRORLEVEL 6 GOTO Main_Menu
+IF ERRORLEVEL 5 GOTO Download_and_Install
+IF ERRORLEVEL 4 GOTO Check_and_Download
+IF ERRORLEVEL 3 GOTO Notify_Only
+IF ERRORLEVEL 2 IF "%Windows_Update_val%" EQU "0" ( GOTO en_Windows_Update ) ELSE ( GOTO ds_Windows_Update )
 IF ERRORLEVEL 1 GOTO after_update_tweaks
 
 
@@ -1361,6 +1352,7 @@ CALL :END_LINE
 @REM ::							 ::
 @REM ::::::::::::::::::::::::::::::
 :Check_Update
+@CHCP 1252 >NUL 2>&1
 CLS
 ECHO.
 ECHO  				============================
@@ -1401,6 +1393,7 @@ GOTO %Menu_Address%
 
 :Update
 CLS
+@CHCP 1252 >NUL 2>&1
 COLOR 0E
 ECHO.
 IF "%Show_Changelogs%" EQU "true" (
@@ -1641,6 +1634,7 @@ EXIT /B
 
 
 :Apps_DOWNLOADER
+IF NOT EXIST "%DESKTOP%\Apps" MKDIR "%DESKTOP%\Apps"
 CALL SET "DNL_OPT=%%CNTXT_OPT%1%%"
 SET "File_Name=!DNL_OPT:%Pattern%=%Replace%!"
 SET "Download_Name=%DNL_OPT%"

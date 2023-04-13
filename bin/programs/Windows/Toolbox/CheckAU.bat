@@ -1,4 +1,5 @@
 @ECHO OFF
+SETLOCAL ENABLEDELAYEDEXPANSION
 SET "Check_Update_Dir=%TEMP%\MagicXToolbox_psbdgtx"
 
 IF NOT EXIST "%Check_Update_Dir%" EXIT
