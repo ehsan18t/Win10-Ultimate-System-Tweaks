@@ -6,6 +6,11 @@
       4. Improve Download Button [Minor]
 -->
 
+>[!WARNING]
+>Once you install this tweaks, it can not be uninstalled completely unless you use system restore. So, make sure to create a restore point before install this. 
+
+<br>
+
 <h1 align="center">Ultimate System Tweaks</h1>
 <div align="center">
   <strong>Ultimate System Tweaks Collection, endgame tweaks for your 64-bit Windows 10</strong>
