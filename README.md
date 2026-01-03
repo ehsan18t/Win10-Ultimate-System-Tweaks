@@ -6,6 +6,12 @@
       4. Improve Download Button [Minor]
 -->
 
+
+>[!NOTE]
+> **Use [_MagicX Toolbox_](https://github.com/ehsan18t/magicx-toolbox-gui) instead of this script. With the toolbox you can restore/undo any change you made.**
+>
+> This repository will not be maintained anymore. I am putting everything on the MagicX Toolbox.
+
 >[!WARNING]
 >Once you install this tweaks, it can not be uninstalled completely unless you use system restore. So, make sure to create a restore point before install this. 
 
